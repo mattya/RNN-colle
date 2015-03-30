@@ -71,6 +71,63 @@ public:
 		}
 
 	}
+
+/*
+	virtual void set_dx(Node<xpu> *target, string type){
+		if(type=="mse"){
+			calc_mse_loss<xpu>(this, target);
+		}else if(type=="category"){
+			calc_category_loss<xpu>(this, target);
+		}else if(type=="nll"){
+			calc_xe_loss<xpu>(this, target);
+		}else{
+			cerr << "invalid loss type" << endl;
+		}
+	}
+
+	virtual float calc_error(Node<xpu> *target, string type){
+		if(type=="mse"){
+			return calc_mse_error<xpu>(this, target);
+		}else if(type=="category"){
+			return calc_category_error<xpu>(this, target);
+		}else if(type=="nll"){
+			return calc_log_likelihood<xpu>(this, target);
+		}else{
+			cerr << "invalid loss type" << endl;
+		}
+	}
+	virtual void predict(string type){
+		if(type=="mse"){
+
+		}else if(type=="category"){
+			for(int t=0; t<N_time; t++){
+				Copy(x_batch_cpu[t], x_batch_gpu[t]);
+				for(int i=0; i<N_batch; i++){
+					float mx = x_batch_cpu[t][i][0];
+					int mxi = 0;
+					for(int j=0; j<N_x; j++){
+						if(mx<x_batch_cpu[t][i][j]){
+							mx = x_batch_cpu[t][i][j];
+							mxi = j;
+						}
+					}
+					for(int j=0; j<N_x; j++){
+						if(mxi==j) x_batch_cpu[t][i][j]=1;
+						else x_batch_cpu[t][i][j]=0;
+					}
+				}
+//				Copy(x_batch_gpu[t], x_batch_cpu[t]);
+			}
+		}else if(type=="nll"){
+			return calc_log_likelihood<xpu>(this, target);
+		}else{
+			cerr << "invalid loss type" << endl;
+		}
+	}
+	virtual void sampling(string type, float beta=1.0){
+
+	}
+*/
 };
 
 

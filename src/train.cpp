@@ -25,6 +25,7 @@ int main(){
 	picojson::object& o = v.get<picojson::object>();
 	string network_type;
 	picojson::value network_param;
+	string mode="train";
 
 // data
 	string data_type;
@@ -32,6 +33,7 @@ int main(){
 	string fn_train_label;
 	string fn_test_data;
 	string fn_test_label;
+	string fn_predict;
 	int n_train, n_test;
 
 // learning
@@ -59,6 +61,7 @@ int main(){
 				if(j->first == "python") Global_params::python = j->second.get<string>();
 				if(j->first == "prefix") Global_params::prefix = j->second.get<string>();
 				if(j->first == "debug") Global_params::DEBUG = j->second.get<bool>();
+				if(j->first == "mode") mode = j->second.get<string>();
 			}
 		}
 		if(i->first == "network"){
@@ -76,6 +79,7 @@ int main(){
 				if(j->first == "train_label") fn_train_label = j->second.get<string>();
 				if(j->first == "test_data") fn_test_data = j->second.get<string>();
 				if(j->first == "test_label") fn_test_label = j->second.get<string>();
+				if(j->first == "predict") fn_predict = j->second.get<string>();
 				if(j->first == "n_train") n_train = (int)j->second.get<double>();
 				if(j->first == "n_test") n_test = (int)j->second.get<double>();
 				if(j->first == "n_x_data") n_x_data = (int)j->second.get<double>();
@@ -391,24 +395,30 @@ int main(){
 		fclose(ii);
 	}
 
-	for(int epoch=init_epoch+1; epoch<=max_epoch; epoch++){
-		network->train(1, iter_per_epoch);
+	if(mode=="train"){
 
-		float train_err = network->train_error(train_error_limit);
-		float test_err = network->test_error();
-		cerr << "epoch: " << epoch << ", train error: " << train_err << ", test error: " << test_err << endl;
-		printf("epoch: %d, train error: %f, test error: %f\n", epoch, train_err, test_err);
-		if(epoch%lr_mult_interval==0){
-			float eta = network->net->get_param("eta");
-	        network->net->set_param("eta", eta*lr_mult);
-			cerr << "eta: " << eta << endl;
-		}
-		if(epoch%snapshot_interval==0){
-			FILE *ir = fopen(to_string("./tmp/"+Global_params::prefix+"_model", epoch).c_str(), "wb");
-			network->save_model(ir);
-			fclose(ir);
+		for(int epoch=init_epoch+1; epoch<=max_epoch; epoch++){
+			network->train(1, iter_per_epoch);
+
+			float train_err = network->train_error(train_error_limit);
+			float test_err = network->test_error();
+			cerr << "epoch: " << epoch << ", train error: " << train_err << ", test error: " << test_err << endl;
+			printf("epoch: %d, train error: %f, test error: %f\n", epoch, train_err, test_err);
+			if(epoch%lr_mult_interval==0){
+				float eta = network->net->get_param("eta");
+		        network->net->set_param("eta", eta*lr_mult);
+				cerr << "eta: " << eta << endl;
+			}
+			if(epoch%snapshot_interval==0){
+				FILE *ir = fopen(to_string("./tmp/"+Global_params::prefix+"_model", epoch).c_str(), "wb");
+				network->save_model(ir);
+				fclose(ir);
+			}
+
 		}
 
+	}else if(mode=="predict"){
+		network->predict(fn_predict, n_test);
 	}
 
   ShutdownTensorEngine<cpu>();

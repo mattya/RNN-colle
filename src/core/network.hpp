@@ -144,6 +144,9 @@ public:
 
 		float loss = 0;
 		int offset = rand()%(train_data->N_all-N_train+1);
+		if(shuffle_type=="multiple_series"){
+			offset = (rand()%((train_data->N_all-N_train)/N_time))*N_time;
+		}
 		for(int iter=0; iter<N_train/N_batch/N_time; iter++){
 			net->set_zero();
 			int lst[N_batch];
@@ -203,8 +206,6 @@ public:
 		return loss/(N_test/N_batch/N_time);
 	}
 
-// TBA num_step
-
 	void predict(string filename, int num_step){
 		int N_pred = num_step;
 		int N_batch = test_data->N_batch;
@@ -218,18 +219,18 @@ public:
 		for(int iter=0; iter<N_pred/N_batch/N_time; iter++){
 			net->set_zero();
 			int lst[N_batch];
-			for(int i=0; i<N_batch; i++) lst[i] = iter*(N_batch)+i;
+			for(int i=0; i<N_batch; i++) lst[i] = i*(N_pred/N_batch)+iter*N_time;
 			test_data->make_batch(lst);
 			test_label->make_batch(lst);
 			for(int t=0; t<N_time; t++){
 				net->forward(t);
 				for(int i=0; i<N_batch; i++){
-					Copy(pred_node->x_all[t][iter*N_batch+i], pred_node->x_batch_gpu[t][i]);
+					Copy(pred_node->x_all[0][lst[i]+t], pred_node->x_batch_gpu[t][i]);
 				}
 			}
 		}
 
-		write_float_data<xpu>(filename, *pred_node, N_pred/N_time, N_label);
+		write_float_data<xpu>(filename, pred_node, N_pred, N_label);
 		delete pred_node;
 	}
 

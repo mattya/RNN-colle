@@ -145,18 +145,16 @@ void read_float_data(string filename, Node<xpu> *node, int num_data, int num_t, 
 
 
 template<typename xpu>
-void write_float_data(string filename, Node<xpu> &node, int num_data, int data_dim, int skip_num=0, float mean=0, float scale=1.0){
+void write_float_data(string filename, Node<xpu> *node, int num_data, int data_dim, int skip_num=0, float mean=0, float scale=1.0){
 	cerr << "write float data to " << filename << endl;
 //	assert(node.N_time==1);
 
 	FILE *fp = fopen(filename.c_str(), "w");
 	for(int i=0; i<num_data; ++i){
-		for(int t=0; t<node.N_time; t++){
-			for(int j=0; j<data_dim; ++j){
-				fprintf(fp, "%f ", scale*(node.x_all[t][i][j]-mean));
-			}
-			fprintf(fp, "\n");
+		for(int j=0; j<data_dim; ++j){
+			fprintf(fp, "%f ", scale*(node->x_all[0][i][j]-mean));
 		}
+		fprintf(fp, "\n");
 	}
 	fclose(fp);
 }
