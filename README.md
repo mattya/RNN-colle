@@ -1,17 +1,14 @@
-#RNNこれくしょん~RNNこれ~
+#RNN collection
 
-**RNN-colle**はRNN (Recurrent Neural Networks)を用いた機械学習ライブラリです。GPUによる高速化も可能。Reservoir ComputingやDeep LSTMといった最先端のRNNモデルで学習を行ったり、オリジナルのRNNを定義するのも簡単にできます。
-ライセンス：apache
-行列計算, GPUにmshadowを使用
-jsonのパースにpicojsonを使用
+**RNN collection** is RNN (Recurrent Neural Networks) & Deep Learning library.
 
-### 特徴
-- **最新のRNNモデルを実装** - Reservoir computing, LSTM, etc.
-- **mshadowベースの実装** - CPU/GPUの切り替えが容易に可能
-- json formatのパラメタファイルで簡単に学習を管理
-- オリジナルのRNNアーキテクチャを定義することも可能
+### Feature
+- **Collection of state-of-the-art RNN models** - Deep LSTM, Reservoir Computing, etc.
+- **mshadow based implementation** - you can easily switch cpu/gpu calculation
+- json format parameter file
+- supports define original RNN model
 
-### 要件
+### Prerequisites
 - CBLAS or MKL
 - C++ compiler (g++, icc, etc.)
 - python
@@ -20,16 +17,24 @@ jsonのパースにpicojsonを使用
 - (optional) nvidia GPU & CUDA 6.5
 
 ### Build
-まず、`fetch.sh`を実行する。これで必要なデータがfetchされる。次に、
-- GPUを用いるとき
+run `fetch.sh` and then
+`make`
+- If you want to use GPU
 `make gpu=1`
-- 行列計算にMKLを用いるとき
+- If you have MKL
 `make mkl=1`
-- 両方
+- Both
 `make gpu=1 mkl=1`
+
+### Getting started
+`./bin/train < ./param_files/narma.json > log.txt`
 
 ### Document
 [Tutorial(jp)](https://github.com/mattya/RNN-colle/wiki/Tutorial_jp)
+
+### Backbone Library
+- [mshadow](https://github.com/dmlc/mshadow)
+- [picojson](https://github.com/kazuho/picojson)
 
 ### Contributors
 - [@mattya1089][1]
