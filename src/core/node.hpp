@@ -170,7 +170,7 @@ float calc_log_likelihood(Node<xpu> *n0, Node<xpu> *n1){
 			loss += tmp_cpu[i];
 		}
 	}
-	return loss/(float)n0->N_batch/(float)n0->N_time;
+	return -loss/(float)n0->N_batch/(float)n0->N_time;
 }
 
 
@@ -197,7 +197,7 @@ float calc_accuracy(Node<xpu> *n0, Node<xpu> *n1){
 	    }
 	}
 
-    return loss/(float)n0->N_batch/(float)n0->N_time;
+    return 1.0f-loss/(float)n0->N_batch/(float)n0->N_time;
 }
 
 

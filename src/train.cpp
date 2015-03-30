@@ -84,7 +84,6 @@ int main(){
 				if(j->first == "n_test") n_test = (int)j->second.get<double>();
 				if(j->first == "n_x_data") n_x_data = (int)j->second.get<double>();
 				if(j->first == "n_x_label") n_x_label = (int)j->second.get<double>();
-				if(j->first == "load_model") load_model = j->second.get<bool>();
 			}
 		}
 		if(i->first == "learning"){
@@ -93,6 +92,7 @@ int main(){
 
 				if(j->first == "n_time") n_time = (int)j->second.get<double>();
 				if(j->first == "n_batch") n_batch = (int)j->second.get<double>();
+				if(j->first == "load_model") load_model = j->second.get<bool>();
 				if(j->first == "init_epoch") init_epoch = (int)j->second.get<double>();
 				if(j->first == "iter_per_epoch") iter_per_epoch = (int)j->second.get<double>();
 				if(j->first == "snapshot_interval") snapshot_interval = (int)j->second.get<double>();
