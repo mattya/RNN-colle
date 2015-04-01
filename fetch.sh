@@ -1,8 +1,15 @@
 #! /bin/bash
-echo "Fetch mshadow..."
-git clone https://github.com/tqchen/mshadow.git -b master
-echo "Fetch picojson..."
-git clone https://github.com/kazuho/picojson.git -b master
+
+if [ ! -e mshadow ]; then
+  echo "Fetch mshadow..."
+  git clone https://github.com/tqchen/mshadow.git -b master
+fi
+
+if [ ! -e picojson ]; then
+  echo "Fetch picojson..."
+  git clone https://github.com/kazuho/picojson.git -b master
+fi
+
 cd picojson
 make
 cd ..
