@@ -7,6 +7,10 @@ cd picojson
 make
 cd ..
 
+mkdir -p data/mnist
+mkdir -p data/narma
+mkdir -p data/recall
+
 echo "Fetch mnist..."
 curl -o ./data/mnist/train-images.idx3-ubyte.gz http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
 curl -o ./data/mnist/train-labels.idx1-ubyte.gz http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
