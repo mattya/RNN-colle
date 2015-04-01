@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -e
 
 if [ ! -e mshadow ]; then
   echo "Fetch mshadow..."
