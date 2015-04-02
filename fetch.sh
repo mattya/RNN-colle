@@ -1,11 +1,22 @@
-#! /bin/bash
-echo "Fetch mshadow..."
-git clone https://github.com/tqchen/mshadow.git -b master
-echo "Fetch picojson..."
-git clone https://github.com/kazuho/picojson.git -b master
+#! /bin/bash -e
+
+if [ ! -e mshadow ]; then
+  echo "Fetch mshadow..."
+  git clone https://github.com/tqchen/mshadow.git -b master
+fi
+
+if [ ! -e picojson ]; then
+  echo "Fetch picojson..."
+  git clone https://github.com/kazuho/picojson.git -b master
+fi
+
 cd picojson
 make
 cd ..
+
+mkdir -p data/mnist
+mkdir -p data/narma
+mkdir -p data/recall
 
 echo "Fetch mnist..."
 curl -o ./data/mnist/train-images.idx3-ubyte.gz http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
