@@ -1,0 +1,50 @@
+{
+     "env": {
+          "python": "python",
+          "debug": false,
+          "prefix": "recall",
+          "mode": "predict"
+     },
+     "network": {
+          "type": "Stacked_LSTM_MLP",
+          "param": {
+               "layers": 2,
+               "layers2": 3,
+               "neurons": [50, 20, 1],
+               "base_neurons": 30,
+               "loss": "nll",
+               "shuffle": "multiple_series",
+               "out_nl": "sigmoid"
+          }
+     },
+     "data": {
+          "type": "series_int_binary",
+          "train_data": "./data/recall/recall_train_in.txt",
+          "train_label": "./data/recall/recall_train_out.txt",
+          "test_data": "./data/recall/recall_test_in.txt",
+          "test_label": "./data/recall/recall_test_out.txt",
+          "predict": "./tmp/recall_predict.txt",
+          "n_train": 1000000,
+          "n_test": 10000,
+          "n_x_data": 4,
+          "n_x_label": 1
+     },
+     "learning": {
+          "handover": true,
+          "n_time": 50,
+          "n_batch": 10,
+          "load_model": true,
+          "init_epoch": 10,
+          "iter_per_epoch": 200,
+          "snapshot_interval": 10,
+          "max_epoch": 100,
+          "sgd": "rmsprop",
+          "momentum": 0.9,
+          "decay": 0.001,
+          "base_lr": 0.0001,
+          "lr_mult": 0.75,
+          "lr_mult_interval": 10,
+          "sampling_length": 100,
+          "train_error_limit": 100000
+     }
+}

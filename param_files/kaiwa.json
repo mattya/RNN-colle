@@ -1,0 +1,47 @@
+{
+     "env": {
+          "python": "python",
+          "debug": false,
+          "prefix": "mnist"
+     },
+     "network": {
+          "type": "MLP",
+          "param": {
+               "layers": 4,
+               "neurons": [784, 500, 200, 10],
+               "hidden_nl": "tanh",
+               "out_nl": "none",
+               "loss": "category",
+               "shuffle": "full_shuffle",
+               "dropout": false
+          }
+     },
+     "data": {
+          "type": "MNIST",
+          "train_data": "../ibis/LSTM/data/mnist/train-images.idx3-ubyte",
+          "train_label": "../ibis/LSTM/data/mnist/train-labels.idx1-ubyte",
+          "test_data": "../ibis/LSTM/data/mnist/t10k-images.idx3-ubyte",
+          "test_label": "../ibis/LSTM/data/mnist/t10k-labels.idx1-ubyte",
+          "n_train": 60000,
+          "n_test": 10000,
+          "load_model": false,
+          "n_x_data": 784,
+          "n_x_label": 10
+     },
+     "learning": {
+          "n_time": 1,
+          "n_batch": 60,
+          "init_epoch": 0,
+          "iter_per_epoch": 1000,
+          "snapshot_interval": 3,
+          "max_epoch": 100,
+          "sgd": "rmsprop",
+          "momentum": 0.9,
+          "decay": 0.001,
+          "base_lr": 0.001,
+          "lr_mult": 0.75,
+          "lr_mult_interval": 10,
+          "sampling_length": 100,
+          "train_error_limit": 10000
+     }
+}

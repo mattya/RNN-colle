@@ -1,0 +1,49 @@
+{
+     "env": {
+          "python": "python",
+          "debug": false,
+          "prefix": "narma",
+          "mode": "predict"
+     },
+     "network": {
+          "type": "Reservoir_MLP",
+          "param": {
+               "layers": 4,
+               "neurons": [200, 100, 100, 1],
+               "base_neurons": 200,
+               "scale": 0.95,
+               "loss": "mse",
+               "shuffle": "single_series"
+          }
+     },
+     "data": {
+          "type": "series_ascii",
+          "train_data": "./data/narma/narma_train_in.txt",
+          "train_label": "./data/narma/narma_train_out.txt",
+          "test_data": "./data/narma/narma_test_in.txt",
+          "test_label": "./data/narma/narma_test_out.txt",
+          "predict": "./tmp/narma_predict.txt",
+          "n_train": 1000000,
+          "n_test": 10000,
+          "n_x_data": 1,
+          "n_x_label": 1
+     },
+     "learning": {
+          "handover": true,
+          "n_time": 100,
+          "n_batch": 10,
+          "load_model": true,
+          "init_epoch": 30,
+          "iter_per_epoch": 1000,
+          "snapshot_interval": 10,
+          "max_epoch": 100,
+          "sgd": "rmsprop",
+          "momentum": 0.9,
+          "decay": 0.001,
+          "base_lr": 0.001,
+          "lr_mult": 0.75,
+          "lr_mult_interval": 10,
+          "sampling_length": 100,
+          "train_error_limit": 100000
+     }
+}
