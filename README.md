@@ -35,13 +35,3 @@ run `fetch.sh` and then
 ### Backbone Library
 - [mshadow](https://github.com/dmlc/mshadow)
 - [picojson](https://github.com/kazuho/picojson)
-
-### Contributors
-- [@mattya1089][1]
-- [Dwango AI Lab.][2]
-- [Kaneko lab. @ the University of Tokyo][3]
-
-
-[1]:https://twitter.com/mattya1089
-[2]:http://ailab.dwango.co.jp/
-[3]:http://chaos.c.u-tokyo.ac.jp/index_j.html
