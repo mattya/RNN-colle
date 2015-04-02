@@ -24,16 +24,16 @@
           "test_label": "./data/mnist/t10k-labels.idx1-ubyte",
           "n_train": 60000,
           "n_test": 10000,
-          "load_model": false,
           "n_x_data": 784,
           "n_x_label": 10
      },
      "learning": {
+          "load_model": false,
           "n_time": 1,
           "n_batch": 60,
           "init_epoch": 0,
           "iter_per_epoch": 1000,
-          "snapshot_interval": 3,
+          "snapshot_interval": 10,
           "max_epoch": 100,
           "sgd": "rmsprop",
           "momentum": 0.9,
